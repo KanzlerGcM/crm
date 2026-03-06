@@ -41,8 +41,6 @@ const pool = new Pool({
   max: 10,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 15000,
-  // Transaction pooler (Supabase port 6543) does not support prepared statements
-  allowExitOnIdle: true,
 });
 
 pool.on('error', (err) => {
@@ -61,6 +59,24 @@ export function saveOnShutdown() {
 }
 
 export async function initDatabase() {
+  // Retry up to 5 times with 5s delay — handles Supabase circuit breaker / cold starts
+  for (let attempt = 1; attempt <= 5; attempt++) {
+    try {
+      await _initDatabase();
+      return;
+    } catch (e) {
+      console.error(`❌ Tentativa ${attempt}/5 de inicializar banco falhou: ${e.message}`);
+      if (attempt < 5) {
+        console.log(`⏳ Aguardando 5s antes da próxima tentativa...`);
+        await new Promise(r => setTimeout(r, 5000));
+      } else {
+        throw e;
+      }
+    }
+  }
+}
+
+async function _initDatabase() {
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
