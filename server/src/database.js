@@ -41,8 +41,6 @@ const pool = new Pool({
   max: 10,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 15000,
-  // Transaction pooler (Supabase port 6543) does not support prepared statements
-  allowExitOnIdle: true,
 });
 
 pool.on('error', (err) => {
