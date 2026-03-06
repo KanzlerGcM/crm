@@ -1,0 +1,289 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════
+   CHEVLA WARZONE — Dark Command Center Design System
+   Palette: Crimson #FF1744 · Ember #FF6B35 · Cyan #00E5FF
+            Steel #1A1D23 · Void #0D0F13 · Plasma #8B5CF6
+   ═══════════════════════════════════════════════════════ */
+
+:root {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --sidebar-w: 280px;
+  font-size: 16px;
+}
+
+body {
+  @apply bg-[#0D0F13] text-gray-100 antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Scrollbar — stealth ── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 23, 68, 0.2); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 23, 68, 0.4); }
+
+.dark-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); }
+.dark-scroll::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.15); }
+
+/* ═══ STATUS BADGES — tactical tags ═══ */
+.badge {
+  @apply inline-flex items-center gap-1.5 px-3 py-1 rounded text-xs font-bold uppercase tracking-wider whitespace-nowrap;
+  letter-spacing: 0.05em;
+}
+.badge::before {
+  content: '';
+  @apply w-1.5 h-1.5 rounded-full flex-shrink-0;
+  background: currentColor;
+  box-shadow: 0 0 6px currentColor;
+}
+
+.badge-prospect { @apply bg-cyan-500/10 text-cyan-400 border border-cyan-500/20; }
+.badge-contacted { @apply bg-violet-500/10 text-violet-400 border border-violet-500/20; }
+.badge-negotiating { @apply bg-amber-500/10 text-amber-400 border border-amber-500/20; }
+.badge-proposal_sent { @apply bg-indigo-500/10 text-indigo-400 border border-indigo-500/20; }
+.badge-client { @apply bg-emerald-500/10 text-emerald-400 border border-emerald-500/20; }
+.badge-lost { @apply bg-red-500/10 text-red-400 border border-red-500/20; }
+
+.badge-draft { @apply bg-gray-500/10 text-gray-400 border border-gray-500/20; }
+.badge-sent { @apply bg-sky-500/10 text-sky-400 border border-sky-500/20; }
+.badge-signed { @apply bg-indigo-500/10 text-indigo-400 border border-indigo-500/20; }
+.badge-in_progress { @apply bg-amber-500/10 text-amber-400 border border-amber-500/20; }
+.badge-delivered { @apply bg-teal-500/10 text-teal-400 border border-teal-500/20; }
+.badge-completed { @apply bg-emerald-500/10 text-emerald-400 border border-emerald-500/20; }
+.badge-cancelled { @apply bg-red-500/10 text-red-400 border border-red-500/20; }
+
+.priority-low { @apply bg-slate-500/10 text-slate-400 border border-slate-500/20; }
+.priority-medium { @apply bg-cyan-500/10 text-cyan-400 border border-cyan-500/20; }
+.priority-high { @apply bg-orange-500/10 text-orange-400 border border-orange-500/20; }
+.priority-urgent { @apply bg-red-500/10 text-red-400 border border-red-500/20; }
+.priority-urgent::before { @apply animate-pulse; box-shadow: 0 0 10px rgba(255,23,68,0.8); }
+
+.focus-ring { @apply focus:ring-2 focus:ring-red-500/30 focus:border-red-500/50 outline-none; }
+
+/* ── Global dark forced — ALL form elements ── */
+input,
+textarea,
+select,
+select option {
+  background-color: #14171D !important;
+  color: #e5e7eb;
+  color-scheme: dark;
+}
+input::placeholder,
+textarea::placeholder {
+  color: #6b7280;
+}
+input:focus,
+textarea:focus {
+  background-color: #1A1D23 !important;
+}
+input:hover,
+textarea:hover {
+  background-color: #1A1D23 !important;
+}
+/* Date/time input calendar icon */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.7);
+  cursor: pointer;
+}
+
+/* ── Inputs — command console ── */
+.input-base {
+  @apply w-full px-4 py-3 border border-white/10 rounded-lg text-base text-gray-100
+         focus:ring-2 focus:ring-red-500/20 focus:border-red-500/40 outline-none
+         transition-all duration-150 placeholder:text-gray-500;
+  background-color: #14171D !important;
+}
+.input-base:hover { @apply border-white/20; background-color: #1A1D23 !important; }
+
+/* ── Select / Dropdown — dark forced ── */
+select {
+  @apply border border-white/10 rounded-lg text-base text-gray-200
+         focus:ring-2 focus:ring-red-500/20 focus:border-red-500/40 outline-none
+         transition-all duration-150;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%239ca3af' viewBox='0 0 16 16'%3E%3Cpath d='M4.646 5.646a.5.5 0 01.708 0L8 8.293l2.646-2.647a.5.5 0 01.708.708l-3 3a.5.5 0 01-.708 0l-3-3a.5.5 0 010-.708z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-right: 2.5rem;
+}
+select:hover {
+  @apply border-white/20 bg-white/[0.07];
+}
+select option {
+  padding: 8px 12px;
+}
+select option:checked {
+  background-color: #FF1744;
+  color: white;
+}
+
+/* ── Buttons — warfare tactical ── */
+.btn-primary {
+  @apply inline-flex items-center gap-2 px-6 py-3
+         text-white rounded-lg text-sm font-bold uppercase tracking-wider
+         transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed;
+  background: linear-gradient(135deg, #FF1744 0%, #D50000 100%);
+  box-shadow: 0 0 20px rgba(255,23,68,0.15), inset 0 1px 0 rgba(255,255,255,0.1);
+  letter-spacing: 0.05em;
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, #FF4569 0%, #FF1744 100%);
+  box-shadow: 0 0 30px rgba(255,23,68,0.3);
+  transform: translateY(-1px);
+}
+.btn-primary:active { transform: translateY(0); }
+
+.btn-secondary {
+  @apply inline-flex items-center gap-2 px-5 py-3 bg-white/5 border border-white/10
+         rounded-lg text-sm font-semibold text-gray-300
+         hover:bg-white/10 hover:border-white/20 hover:text-white
+         active:bg-white/[0.07] transition-all duration-200;
+}
+
+.btn-danger {
+  @apply inline-flex items-center gap-2 px-5 py-2.5
+         text-white rounded-lg text-sm font-bold transition-all duration-200;
+  background: linear-gradient(135deg, #B71C1C 0%, #7F0000 100%);
+  box-shadow: 0 0 15px rgba(183,28,28,0.2);
+}
+.btn-danger:hover {
+  background: linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%);
+  box-shadow: 0 0 25px rgba(211,47,47,0.3);
+}
+
+/* ── Cards — steel panels ── */
+.card {
+  @apply bg-[#14171D] rounded-xl border border-white/[0.06] overflow-hidden;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.03);
+}
+.glass-card {
+  @apply bg-[#14171D]/90 backdrop-blur-xl rounded-xl border border-white/[0.06];
+  box-shadow: 0 4px 30px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+.table-header {
+  @apply text-left text-xs font-bold text-gray-500 uppercase tracking-[0.1em] px-5 py-3;
+}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes slideIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+.animate-slide-in { animation: slideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.animate-fade-in { animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+
+@keyframes toastIn { from { opacity: 0; transform: translateX(100%); } to { opacity: 1; transform: translateX(0); } }
+.animate-toast-in { animation: toastIn 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+.animate-scale-in { animation: scaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+
+@keyframes pulse-ring { 0% { transform: scale(0.95); opacity: 0.5; } 50% { transform: scale(1); opacity: 0.3; } 100% { transform: scale(0.95); opacity: 0.5; } }
+.animate-pulse-ring { animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+@keyframes staggerFade { from { opacity: 0; transform: translateY(10px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.stagger-children > * { animation: staggerFade 0.35s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 50ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 50ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 100ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 150ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 200ms; }
+.stagger-children > *:nth-child(7) { animation-delay: 250ms; }
+.stagger-children > *:nth-child(8) { animation-delay: 300ms; }
+.stagger-children > *:nth-child(9) { animation-delay: 350ms; }
+.stagger-children > *:nth-child(10) { animation-delay: 400ms; }
+
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+.skeleton {
+  @apply rounded-lg;
+  background: linear-gradient(90deg, #1a1d23 25%, #22262e 37%, #1a1d23 63%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+/* ═══ LOGIN — Warzone Portal ═══ */
+@keyframes warpDrift {
+  0%, 100% { background-position: 0% 50%; }
+  25% { background-position: 100% 0%; }
+  50% { background-position: 50% 100%; }
+  75% { background-position: 0% 50%; }
+}
+.warzone-bg {
+  background: linear-gradient(-45deg, #0D0F13, #1A0A0A, #0D0F13, #0A0D1F, #150A0A, #0D0F13, #0A1520);
+  background-size: 400% 400%;
+  animation: warpDrift 25s ease infinite;
+}
+
+/* Keep aurora-bg as alias for backwards compat */
+.aurora-bg { @apply warzone-bg; }
+
+@keyframes float1 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+  33% { transform: translate(40px, -60px) scale(1.2); opacity: 0.7; }
+  66% { transform: translate(-30px, 30px) scale(0.8); opacity: 0.3; }
+}
+@keyframes float2 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+  33% { transform: translate(-50px, 40px) scale(0.8); opacity: 0.6; }
+  66% { transform: translate(30px, -70px) scale(1.15); opacity: 0.4; }
+}
+@keyframes float3 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+  50% { transform: translate(20px, -40px) scale(1.1); opacity: 0.5; }
+}
+.war-orb-1, .aurora-orb-1 { animation: float1 12s ease-in-out infinite; }
+.war-orb-2, .aurora-orb-2 { animation: float2 16s ease-in-out infinite; }
+.war-orb-3, .aurora-orb-3 { animation: float3 20s ease-in-out infinite; }
+
+/* Scanline CRT overlay */
+.scanline-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,23,68,0.015) 2px, rgba(255,23,68,0.015) 4px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Grid pattern */
+.grid-pattern {
+  background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.hover-lift { @apply transition-all duration-200; }
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+.sidebar-link-active {
+  background: linear-gradient(135deg, rgba(255,23,68,0.12) 0%, rgba(255,23,68,0.04) 100%);
+  border-left: 3px solid #FF1744;
+  box-shadow: inset 0 0 20px rgba(255,23,68,0.05);
+}
+
+.glow-text { text-shadow: 0 0 10px currentColor, 0 0 30px currentColor; }
+
+::selection { @apply bg-red-900/50 text-red-100; }
+
+@media print {
+  .no-print { display: none !important; }
+  aside, nav, button, .btn-primary, .btn-secondary { display: none !important; }
+  main, [class*="ml-"] { margin-left: 0 !important; width: 100% !important; }
+  body { background: white !important; color: black !important; }
+  * { box-shadow: none !important; }
+}

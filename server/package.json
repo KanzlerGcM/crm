@@ -1,0 +1,32 @@
+{
+  "name": "prospector-chevla-server",
+  "version": "1.0.0",
+  "description": "Backend do Prospector Chevla - CRM e geração de contratos",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "canvas": "^3.2.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.1",
+    "express-rate-limit": "^8.2.1",
+    "helmet": "^8.1.0",
+    "imap": "^0.8.19",
+    "jsonwebtoken": "^9.0.2",
+    "mailparser": "^3.9.3",
+    "multer": "^2.0.2",
+    "nodemailer": "^8.0.1",
+    "pdf-lib": "^1.17.1",
+    "pdf-poppler": "^0.2.3",
+    "pdfjs-dist": "^5.4.624",
+    "pdfkit": "^0.16.0",
+    "pg": "^8.20.0",
+    "sharp": "^0.34.5",
+    "socket.io": "^4.8.3"
+  }
+}
