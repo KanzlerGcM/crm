@@ -43,14 +43,22 @@ app.use(helmet({
 // CORS — include production origin from env
 const allowedOrigins = [
   'http://localhost:5173', 'http://localhost:5174', 'http://localhost:3000',
-  ...(process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',').map(s => s.trim()) : []),
+  ...(process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',').map(s => s.trim().replace(/^["']|["']$/g, '')) : []),
 ].filter(Boolean);
+
+console.log('✅ CORS origens permitidas:', allowedOrigins);
 
 // Export for WebSocket to reuse
 export { allowedOrigins };
 
 app.use(cors({
-  origin: allowedOrigins,
+  origin: (origin, callback) => {
+    // Allow requests with no origin (curl, Postman, server-to-server)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    console.warn(`⚠️  CORS bloqueado para origem: ${origin}`);
+    callback(new Error(`CORS: origin ${origin} not allowed`));
+  },
   credentials: true,
 }));
 
