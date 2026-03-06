@@ -38,9 +38,10 @@ const pool = new Pool({
   ssl: process.env.DATABASE_URL?.includes('supabase')
     ? { rejectUnauthorized: false }
     : (process.env.DATABASE_SSL === 'true' ? { rejectUnauthorized: false } : false),
-  max: 10,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 15000,
+  max: 5,          // keep low for Supabase pooler limits
+  min: 0,          // don't pre-connect — avoids circuit breaker on cold start
+  idleTimeoutMillis: 10000,
+  connectionTimeoutMillis: 10000,
 });
 
 pool.on('error', (err) => {
