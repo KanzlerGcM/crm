@@ -59,16 +59,16 @@ export function saveOnShutdown() {
 }
 
 export async function initDatabase() {
-  // Retry up to 5 times with 5s delay — handles Supabase circuit breaker / cold starts
-  for (let attempt = 1; attempt <= 5; attempt++) {
+  // Retry up to 3 times with 3s delay — handles Supabase circuit breaker / cold starts
+  for (let attempt = 1; attempt <= 3; attempt++) {
     try {
       await _initDatabase();
       return;
     } catch (e) {
-      console.error(`❌ Tentativa ${attempt}/5 de inicializar banco falhou: ${e.message}`);
-      if (attempt < 5) {
-        console.log(`⏳ Aguardando 5s antes da próxima tentativa...`);
-        await new Promise(r => setTimeout(r, 5000));
+      console.error(`❌ Tentativa ${attempt}/3 de inicializar banco falhou: ${e.message}`);
+      if (attempt < 3) {
+        console.log(`⏳ Aguardando 3s antes da próxima tentativa...`);
+        await new Promise(r => setTimeout(r, 3000));
       } else {
         throw e;
       }
